@@ -18,3 +18,4 @@ Suggests:
 URL: https://github.com/mikeygomez/miceplorer
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Logo: man/figures/miceplorer.jpg

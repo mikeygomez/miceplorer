@@ -71,7 +71,8 @@ The excel file is expected to contain three sheets:
 ``` r
 library(miceplorer)
 
-mousedata <- clean_mouse_data("data-raw/mousedata.xlsx")
+path <- "~/miceplorer/data-raw/mousedata.xlsx"
+mousedata <- clean_mouse_data(path)
 ```
 
 Here is how you can visualize interim results:
