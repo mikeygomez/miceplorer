@@ -7,15 +7,24 @@
 checkIDs(data, birthdata, var)
 }
 \arguments{
-\item{data}{The current dataset being checked}
+\item{data}{A data frame containing measurement values and dates. Column names
+should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+..., "Measurement name k", "Date Measurement name k".}
 
-\item{birthdata}{Reference data set containing the IDs}
+\item{birthdata}{Contains cleaned birth data.}
 
-\item{var}{Type of measurement - "Body Weight" or "Outcome"}
+\item{var}{A character string specifying the type of measurement to be processed
+\itemize{
+\item either "Body Weight" or "Outcome".
+}}
 }
 \value{
-A list containing the modified data and summary tables
+A list containing:
+\item{invalid_ids}{table of invalid IDs found}
+\item{remaining_valid_ids}{any remaining valid IDs not found in dataset}
+\item{changes_made}{number of invalid IDs found and changed}
 }
 \description{
-checkIDs() Function
+This function makes sure that the IDs in a dataset align with those found in
+the cleaned birth data set.
 }

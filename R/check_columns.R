@@ -1,10 +1,18 @@
 #' check_columns() Function
 #'
-#' @param data Data set to be checked
-#' @param var Type of data set that is being checked - either "Body Weight" or "Outcome"
+#' This function makes sure that the column names are appropriately named. If any
+#' incorrect column names are found, it asks user to change it.
 #'
-#' @return The purpose of this function is to check that the Body Weight or
-#'  Outcome column names are as expected before we proceed with analysis.
+#' @param data A data frame containing measurement values and dates. Column names
+#' should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+#' ..., "Measurement name k", "Date Measurement name k".
+#'
+#' @param var A character string specifying the type of measurement to be processed
+#' - either "Body Weight" or "Outcome".
+#'
+#' @return This function returns a list:
+#'    \item{data}{cleaned dataset}
+#'    \item{mismatches}{any incorrect column names that were found}
 #' @import knitr
 #' @export
 

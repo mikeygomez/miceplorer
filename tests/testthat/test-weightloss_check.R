@@ -16,7 +16,7 @@ test_that("weightloss_check identifies mice exceeding threshold", {
     .package = "base"
   )
 
-  result <- weightloss_check(test_data, "Body Weight", threshold = 20)
+  result <- weightloss_check(test_data, threshold = 20)
 
   expect_equal(nrow(result$sac_mice), 1)
   expect_equal(result$sac_mice$ID, "M_1")

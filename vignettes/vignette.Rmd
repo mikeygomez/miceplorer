@@ -1,0 +1,113 @@
+---
+title: "Miceplorer Vignette"
+author: "Michael Gomez"
+date: "2024-12-16"
+output: pdf_document
+---
+
+First, let's download the package
+
+```{r, eval = F}
+devtools::install_github("mikeygomez/miceplorer")
+```
+
+Yay! It installed. Now, let's load it:
+
+```{r, eval = F}
+library(miceplorer)
+library(readxl)
+```
+
+This vignette will use two approaches -> one using the clean_mouse_data to clean the data in one go and the other approach will clean the data by using each individual function.
+
+## Approach 1
+
+Let's load in and clean the data. If you want to do this, download the xlsx file from the data-raw file from github and replace path below. When console says to pick something from a table, the table is printed out as a knit-asis object.
+
+```{r, eval = F}
+path <- "~/miceplorer/data-raw/mousedata.xlsx"
+cleaned_data <- clean_mouse_data(path)
+```
+
+Before, we continue it is important to generate a treatment_info dataframe which maps IDs to treatment groups.
+
+```{r, eval = F}
+treatment_info <- create_treatment_info(cleaned_data$birth)
+```
+
+
+Now, let's check for potential outliers in both outcomes and body weight.
+
+```{r, eval = F}
+weightoutliers <- identifyoutliers(data$weight, "Body Weight", treatment_info)
+```
+```{r, eval = F}
+outcomeoutliers <- identifyoutliers(data$outcome, "Outcome", treatment_info)
+```
+
+Now, let's check for any significant weight loss.
+
+```{r, eval = F}
+weightcheck <- weightloss_check(cleaned_data$weight, threshold = 20)
+```
+
+Finally, we can generate a graph of both placebo and treatment looking at outcomes.
+
+```{r, eval = F}
+plots <- plot_indmeasurement(data$weight, "Body Weight", treatment_info)
+print(plots$treatment)
+print(plots$placebo)
+```
+
+## Approach 2
+
+This approach will break up the clean_mouse_data() function into the separate functions that it calls to understand what's going on.
+
+```{r, eval = F}
+#maps sheets from the excel file to Birth, Body Weight, or Outcome
+sheet_map <- excelsheetinfo(path)
+```
+Now, let's load in and clean the birth data set.
+
+```{r, eval = F}
+#reads in excel and call clean_birth_data function
+birthdata <- readxl::read_excel(path, sheet = sheet_map[["Birth"]])
+clean_birth_data <- clean_birth_data(birthdata)
+```
+Now let's load in the weight data. You can call clean_weight_data or break it up into its functions. First we'll use the clean_weight_data() function and then I'll break it up.
+
+```{r, eval = F}
+#reads in data and goes function by function
+weightdata <- readxl::read_excel(path, sheet = sheet_map[["Body Weight"]])
+clean_weight_data <- clean_weight_data(weightdata, clean_birth_data)
+```
+
+Broken up into its parts.
+
+```{r, eval = F}
+var <- "Body Weight"
+data <- weightdata
+#checks that column names are appropriate
+columnnames <- check_columns(data, var)
+data <- columnnames$data
+
+#check that IDs are correct
+IDcheck <- checkIDs(data, birthdata, var)
+data <- IDcheck$data
+
+#check that body weight values are numbers or NA
+data <- checkquantvars(data, var)
+```
+
+Let's do a similar thing for outcome data.
+
+```{r, eval = F}
+outcomedata <- readxl::read_excel(path, sheet = sheet_map[["Outcome"]])
+clean_outcome_data <- clean_outcome_data(outcomedata, clean_birth_data)
+```
+
+You can also break up the function like we did for birth weight, but since it would be redundant, I am omitting that.
+
+Just like we did in approach 1, you can analyze the data further.
+
+Congrats! You finished.

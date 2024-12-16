@@ -1,9 +1,16 @@
 #' clean_mouse_data() Function
 #'
+#' This function cleans the mouse data by obtaining sheet information on the excel
+#' file. It then uses this sheet information and the loaded excel file to
+#' call the individual clean functions to fully clean it.
+#'
 #' @param file_path Path of the excel file that contains your data. The file
 #' must contain three tabs - birth data, body weight data, and outcome data.
 #'
-#' @return A list of containg the cleaned birth data, cleaned weight data, and cleaned outcome data.
+#' @return A list containing:
+#'    \item{birth}{cleaned birth data}
+#'    \item{weight}{cleaned weight data}
+#'    \item{outcome}{cleaned outcome data}
 #' @import readxl
 #' @export
 clean_mouse_data <- function(file_path) {

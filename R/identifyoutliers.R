@@ -1,7 +1,15 @@
 #' identifyoutliers() Function
 #'
-#' @param data Data to be analyzed
-#' @param var Type of measurement - "Body Weight" or "Outcome"
+#' This function builds a time series model based off of inputted data and using
+#' standardized residuals, it identifies potential outlier data.
+#'
+#' @param data A data frame containing measurement values and dates. Column names
+#' should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+#' ..., "Measurement name k", "Date Measurement name k".
+#'
+#' @param var A character string specifying the type of measurement to be processed
+#' - either "Body Weight" or "Outcome".
+#'
 #' @param treatment_info Data set that maps ID to treatment assignment. This can
 #'  be made by inputting birthdata into create_treatment_info() function.
 #'
@@ -10,10 +18,12 @@
 #'   \item{outliers}{Data frame of identified outliers}
 #'   \item{plot}{ggplot plot of the data with outliers highlighted}
 #' @import dplyr ggplot2 nlme
+#' @importFrom nlme collapse
 #' @export
+#'
 identifyoutliers <- function(data, var, treatment_info) {
 
-  # Validate inputs
+  #validate inputs
   if (!var %in% c("Body Weight", "Outcome")) {
     stop("'var' must be either 'Body Weight' or 'Outcome'")
   }
@@ -24,6 +34,7 @@ identifyoutliers <- function(data, var, treatment_info) {
 
   mod_data <- preprocessdata(data, var)
 
+  #preprocess data for time series analysis
   analysis_data <- data.frame(
     date = as.Date(rep(rownames(mod_data), ncol(mod_data))),
     variable = as.vector(mod_data),
@@ -37,11 +48,11 @@ identifyoutliers <- function(data, var, treatment_info) {
     ) %>%
     dplyr::arrange(ID, time)
 
-  # Filter out rows with NAs before fitting the model
+  #filter out rows with NAs before fitting the model
   analysis_data <- analysis_data %>%
     dplyr::filter(!is.na(variable), !is.na(time), !is.na(Treatment))
 
-  # Fit the model
+  #fit the model
   timeseries_model <- nlme::gls(
     variable ~ time * Treatment,
     correlation = nlme::corAR1(form = ~ time | ID),
@@ -50,29 +61,29 @@ identifyoutliers <- function(data, var, treatment_info) {
     method = "REML"
   )
 
-  # Calculate residuals
+  #calculate residuals
   analysis_data$residuals <- stats::residuals(timeseries_model, type = "normalized")
 
-  # Standardize residuals
+  #standardize residuals
   analysis_data <- analysis_data %>%
     dplyr::group_by(Treatment) %>%
     dplyr::mutate(
-      sd_resid = sd(residuals, na.rm = TRUE),  # Standard deviation of residuals within treatment
-      standardized_resid = residuals / sd_resid  # Standardize the residuals
+      sd_resid = sd(residuals, na.rm = TRUE),
+      standardized_resid = residuals / sd_resid
     ) %>%
     dplyr::ungroup()
 
-  # Find outliers based on standardized residuals
+  #find outliers based on standardized residuals
   outliers <- analysis_data %>%
     dplyr::group_by(ID, Treatment) %>%
     dplyr::summarise(
       mean_resid = mean(standardized_resid, na.rm = TRUE),
       max_resid = max(abs(standardized_resid), na.rm = TRUE),
-      n_large = sum(abs(standardized_resid) > 2)  # Threshold for standardized residuals
+      n_large = sum(abs(standardized_resid) > 2)
     ) %>%
-    dplyr::filter(max_resid > 3 | n_large >= 2)  # Outlier criteria based on standardized residuals
+    dplyr::filter(max_resid > 3 | n_large >= 2)
 
-  # Create the plot
+  #create the plot
   p <- ggplot2::ggplot(analysis_data, ggplot2::aes(x = date, y = variable, group = ID)) +
     ggplot2::geom_line(ggplot2::aes(color = ID %in% outliers$ID)) +
     ggplot2::facet_wrap(~Treatment) +
@@ -81,7 +92,6 @@ identifyoutliers <- function(data, var, treatment_info) {
                                 labels = c("No", "Yes")) +
     ggplot2::theme_minimal()
 
-  # Print the outlier message
   if (nrow(outliers) > 0) {
     message(sprintf("Found %d subjects with outlying measurements.", nrow(outliers)))
   } else {

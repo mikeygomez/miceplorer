@@ -7,14 +7,17 @@
 clean_outcome_data(data, birthdata)
 }
 \arguments{
-\item{data}{Weight data to be cleaned.}
+\item{data}{A data frame containing outcome values and dates. Column names
+should be formatted as "ID", "Outcome 1", "Date Outcome 1",
+..., "Outcome k", "Date Outcome k".}
 
 \item{birthdata}{Contains cleaned birth data.}
 }
 \value{
-A cleaned outcome data set with correct column names, IDs,
-body weight value types, and date format
+A cleaned outcome data set with correct column names and IDs
 }
 \description{
-clean_outcome_data() Function
+This function cleans outcome data by checking column names, IDs, and
+data types. If any errors are found, the function prompts the user
+to fix it.
 }

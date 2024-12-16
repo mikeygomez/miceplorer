@@ -1,7 +1,15 @@
 #' plot_indmeasurement() Function
 #'
-#' @param data Data to be analyzed
-#' @param var Type of measurement - "Body Weight" or "Outcome"
+#' This function generates two ggplot2 visualizations of a variable over time -
+#' one for the treatment group and one for the placebo group.
+#'
+#' @param data A data frame containing measurement values and dates. Column names
+#' should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+#' ..., "Measurement name k", "Date Measurement name k".
+#'
+#' @param var A character string specifying the type of measurement to be processed
+#' - either "Body Weight" or "Outcome".
+#'
 #' @param treatment_info Data set that maps ID to treatment assignment. This can
 #'  be made by inputting birthdata into create_treatment_info() function.
 #'
@@ -12,10 +20,10 @@
 #' @export
 plot_indmeasurement <- function(data, var, treatment_info) {
 
-  # Preprocess data
+  #preprocess data
   mod_data <- preprocessdata(data, var)
 
-  # Transform data for ggplot
+  #transform data for ggplot
   plot_data <- data.frame(
     date = as.Date(rep(rownames(mod_data), ncol(mod_data))),
     variable = as.vector(mod_data),
@@ -23,7 +31,7 @@ plot_indmeasurement <- function(data, var, treatment_info) {
   ) %>%
     dplyr::left_join(treatment_info, by = "ID")
 
-  # Create treatment plot
+  #create treatment plot
   p_tmt <- plot_data %>%
     dplyr::filter(Treatment == "Tmt") %>%
     ggplot2::ggplot(ggplot2::aes(x = date, y = variable, group = ID, color = ID)) +
@@ -33,7 +41,7 @@ plot_indmeasurement <- function(data, var, treatment_info) {
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
     ggplot2::ggtitle("Treatment Mice")
 
-  # Create placebo plot
+  #create placebo plot
   p_plac <- plot_data %>%
     dplyr::filter(Treatment == "Plac") %>%
     ggplot2::ggplot(ggplot2::aes(x = date, y = variable, group = ID, color = ID)) +
@@ -43,7 +51,7 @@ plot_indmeasurement <- function(data, var, treatment_info) {
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
     ggplot2::ggtitle("Placebo Mice")
 
-  # Return a list of plots
+  #return a list of plots
   return(list(treatment = p_tmt, placebo = p_plac))
 }
 

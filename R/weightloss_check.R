@@ -1,11 +1,17 @@
 #' weightloss_check() Function
 #'
-#' @param data Data to be analyzed
-#' @param threshold Percentage weight loss threshold for removal (default = 20%)
+#' This function analyzes weight loss data and identifies mice that have exceeded a weight loss threshold set by you.
+#' The function returns two summary tables of weight loss: one for all mice and one for those that have been flagged by exceeding the weight loss threshold.
 #'
-#' @return A list containing:
-#'   \item{sac_mice}{Summary table of all mice that exceed the weight threshold}
-#'   \item{all_mice}{Summary table of all mice and weight}
+#' @param data A data frame containing the cleaned weight data for mice - you can obtain and clean this data set using the clean_mouse_data() function.
+#' @param threshold A numeric value specifying the percentage weight loss threshold for removal. Mice that have lost more than this percentage of their initial weight will be flagged for sacrifice! The default is 20%.
+#'
+#' @return A list containing two elements:
+#' \describe{
+#'   \item{sac_mice}{A summary table of all mice that have exceeded the weight loss threshold. The table includes `mouse_id`, `initial_weight`, `current_weight`, and `percentage_loss`.}
+#'   \item{all_mice}{A summary table of all mice, including `mouse_id`, `initial_weight`, `current_weight`, and `percentage_loss`. This table shows the weight change for all subjects, regardless of whether they exceed the threshold.}
+#' }
+#'
 #' @import dplyr knitr
 #' @export
 weightloss_check <- function(data, threshold = 20) {

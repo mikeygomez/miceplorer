@@ -1,6 +1,13 @@
 #' clean_weight_data() Function
 #'
-#' @param data Weight data to be cleaned.
+#' This function cleans weight data by checking column names, IDs, and
+#' data types. If any errors are found, the function prompts the user
+#' to fix it.
+#'
+#' @param data A data frame containing weight data values and dates. Column names
+#' should be formatted as "ID", "Body Weight 1", "Date Body Weight 1",
+#' ..., "Body Weight k", "Date Body Weight k".
+#'
 #' @param birthdata Contains cleaned birth data.
 #'
 #' @return A cleaned weight data set with correct column names, IDs,

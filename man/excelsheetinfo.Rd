@@ -7,12 +7,14 @@
 excelsheetinfo(path)
 }
 \arguments{
-\item{path}{Path of the excel sheet.}
+\item{path}{The path of the excel file to be analyzed.}
 }
 \value{
 This function returns a mapping of each sheet in the excel to
 a particular data set type (Birth, Body Weight, or Outcome).
 }
 \description{
-excelsheetinfo() Function
+This function reads in the excel file at the given path and then prompts the
+user to identify which sheets inside the excel file are which data set type.
+(Birth, Body Weight, or Outcome)
 }

@@ -7,9 +7,14 @@
 plot_indmeasurement(data, var, treatment_info)
 }
 \arguments{
-\item{data}{Data to be analyzed}
+\item{data}{A data frame containing measurement values and dates. Column names
+should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+..., "Measurement name k", "Date Measurement name k".}
 
-\item{var}{Type of measurement - "Body Weight" or "Outcome"}
+\item{var}{A character string specifying the type of measurement to be processed
+\itemize{
+\item either "Body Weight" or "Outcome".
+}}
 
 \item{treatment_info}{Data set that maps ID to treatment assignment. This can
 be made by inputting birthdata into create_treatment_info() function.}
@@ -20,5 +25,6 @@ A list containing:
 \item{p_plac}{ggplot2 visualization of placebo group}
 }
 \description{
-plot_indmeasurement() Function
+This function generates two ggplot2 visualizations of a variable over time -
+one for the treatment group and one for the placebo group.
 }

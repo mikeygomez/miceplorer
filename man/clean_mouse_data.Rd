@@ -11,8 +11,13 @@ clean_mouse_data(file_path)
 must contain three tabs - birth data, body weight data, and outcome data.}
 }
 \value{
-A list of containg the cleaned birth data, cleaned weight data, and cleaned outcome data.
+A list containing:
+\item{birth}{cleaned birth data}
+\item{weight}{cleaned weight data}
+\item{outcome}{cleaned outcome data}
 }
 \description{
-clean_mouse_data() Function
+This function cleans the mouse data by obtaining sheet information on the excel
+file. It then uses this sheet information and the loaded excel file to
+call the individual clean functions to fully clean it.
 }

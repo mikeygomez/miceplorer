@@ -7,14 +7,21 @@
 check_columns(data, var)
 }
 \arguments{
-\item{data}{Data set to be checked}
+\item{data}{A data frame containing measurement values and dates. Column names
+should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+..., "Measurement name k", "Date Measurement name k".}
 
-\item{var}{Type of data set that is being checked - either "Body Weight" or "Outcome"}
+\item{var}{A character string specifying the type of measurement to be processed
+\itemize{
+\item either "Body Weight" or "Outcome".
+}}
 }
 \value{
-The purpose of this function is to check that the Body Weight or
-Outcome column names are as expected before we proceed with analysis.
+This function returns a list:
+\item{data}{cleaned dataset}
+\item{mismatches}{any incorrect column names that were found}
 }
 \description{
-check_columns() Function
+This function makes sure that the column names are appropriately named. If any
+incorrect column names are found, it asks user to change it.
 }

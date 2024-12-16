@@ -7,16 +7,18 @@
 checkquantvars(data, name)
 }
 \arguments{
-\item{data}{Data set to be checked}
+\item{data}{A data frame containing measurement values and dates. Column names
+should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+..., "Measurement name k", "Date Measurement name k".}
 
 \item{name}{Common name of columns that should contain quantitative variables.
 Should be "Outcome" or "Body Weight"}
 }
 \value{
-This function takes in a data set and makes sure that all quantitative
-variable columns contain numeric values. If it finds a non-numeric value,
-it asks user to input NA or a numeric value.
+This function returns a dataset with numeric values in appropriate columns.
 }
 \description{
-checkquantvars() Function
+This function makes sure that the outcome or body weight measurements get
+converted to numeric. If it finds any strings, it prompts user to input
+a numeric value or NA.
 }

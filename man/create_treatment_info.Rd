@@ -11,9 +11,9 @@ create_treatment_info(birth_data)
 function output}
 }
 \value{
-This function takes cleaned birth data as an input and outputs
-a dataset with only ID and treatment assignment.
+The output is a dataset with only ID and treatment assignment.
 }
 \description{
-create_treatment_info() Function
+This function takes in a cleaned birth data set and outputs a dataframe with
+only the ID and treatment columns. This dataframe is useful in some analyses.
 }

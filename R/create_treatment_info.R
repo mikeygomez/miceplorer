@@ -1,10 +1,12 @@
 #' create_treatment_info() Function
 #'
+#' This function takes in a cleaned birth data set and outputs a dataframe with
+#' only the ID and treatment columns. This dataframe is useful in some analyses.
+#'
 #' @param birth_data This is the cleaned birth data set from the clean_mouse_data
 #' function output
 #'
-#' @return This function takes cleaned birth data as an input and outputs
-#' a dataset with only ID and treatment assignment.
+#' @return The output is a dataset with only ID and treatment assignment.
 #' @import dplyr
 #' @export
 create_treatment_info <- function(birth_data) {

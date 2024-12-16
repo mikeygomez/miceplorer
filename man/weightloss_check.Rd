@@ -4,20 +4,21 @@
 \alias{weightloss_check}
 \title{weightloss_check() Function}
 \usage{
-weightloss_check(data, var, threshold = 20)
+weightloss_check(data, threshold = 20)
 }
 \arguments{
-\item{data}{Data to be analyzed}
+\item{data}{A data frame containing the cleaned weight data for mice - you can obtain and clean this data set using the clean_mouse_data() function.}
 
-\item{var}{Type of measurement - "Body Weight" or "Outcome"}
-
-\item{threshold}{Percentage weight loss threshold for removal (default = 20\%)}
+\item{threshold}{A numeric value specifying the percentage weight loss threshold for removal. Mice that have lost more than this percentage of their initial weight will be flagged for sacrifice! The default is 20\%.}
 }
 \value{
-A list containing:
-\item{sac_mice}{Summary table of all mice that exceed the weight threshold}
-\item{all_mice}{Summary table of all mice and weight}
+A list containing two elements:
+\describe{
+\item{sac_mice}{A summary table of all mice that have exceeded the weight loss threshold. The table includes \code{mouse_id}, \code{initial_weight}, \code{current_weight}, and \code{percentage_loss}.}
+\item{all_mice}{A summary table of all mice, including \code{mouse_id}, \code{initial_weight}, \code{current_weight}, and \code{percentage_loss}. This table shows the weight change for all subjects, regardless of whether they exceed the threshold.}
+}
 }
 \description{
-weightloss_check() Function
+This function analyzes weight loss data and identifies mice that have exceeded a weight loss threshold set by you.
+The function returns two summary tables of weight loss: one for all mice and one for those that have been flagged by exceeding the weight loss threshold.
 }

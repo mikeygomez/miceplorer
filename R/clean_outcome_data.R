@@ -1,10 +1,16 @@
 #' clean_outcome_data() Function
 #'
-#' @param data Weight data to be cleaned.
+#' This function cleans outcome data by checking column names, IDs, and
+#' data types. If any errors are found, the function prompts the user
+#' to fix it.
+#'
+#' @param data A data frame containing outcome values and dates. Column names
+#' should be formatted as "ID", "Outcome 1", "Date Outcome 1",
+#' ..., "Outcome k", "Date Outcome k".
+#'
 #' @param birthdata Contains cleaned birth data.
 #'
-#' @return A cleaned outcome data set with correct column names, IDs,
-#'   body weight value types, and date format
+#' @return A cleaned outcome data set with correct column names and IDs
 #' @export
 clean_outcome_data <- function(data, birthdata) {
   var = "Outcome"

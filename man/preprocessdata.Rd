@@ -7,13 +7,22 @@
 preprocessdata(data, var)
 }
 \arguments{
-\item{data}{Data set to be preprocessed.}
+\item{data}{A data frame containing measurement values and dates. Column names
+should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+..., "Measurement name k", "Date Measurement name k".}
 
-\item{var}{Type of measurement - "Body Weight" or "Outcome"}
+\item{var}{A character string specifying the type of measurement to be processed
+\itemize{
+\item either "Body Weight" or "Outcome".
+}}
 }
 \value{
-Modified data set proper for analysis.
+A matrix containing the reshaped data with each row being a unique
+date and each column being a unique ID.
 }
 \description{
-preprocessdata() Function
+This function preprocesses a data set by extracting measurements for either
+"Body Weight" or "Outcome" and modifying the structure of the data that is
+appropriate for subsequent analysis. The function reshapes the data into one
+each row is a unique date and each column is a unique ID.
 }

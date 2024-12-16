@@ -1,9 +1,20 @@
 #' preprocessdata() Function
 #'
-#' @param data Data set to be preprocessed.
-#' @param var Type of measurement - "Body Weight" or "Outcome"
+#' This function preprocesses a data set by extracting measurements for either
+#' "Body Weight" or "Outcome" and modifying the structure of the data that is
+#' appropriate for subsequent analysis. The function reshapes the data into one
+#' each row is a unique date and each column is a unique ID.
 #'
-#' @return Modified data set proper for analysis.
+#' @param data A data frame containing measurement values and dates. Column names
+#' should be formatted as "ID", "Measurement name 1", "Date Measurement name 1",
+#' ..., "Measurement name k", "Date Measurement name k".
+#'
+#' @param var A character string specifying the type of measurement to be processed
+#' - either "Body Weight" or "Outcome".
+#'
+#' @return A matrix containing the reshaped data with each row being a unique
+#' date and each column being a unique ID.
+#'
 #' @export
 preprocessdata <- function(data, var){
   #var is "Body Weight" or "Outcome"
@@ -17,7 +28,7 @@ preprocessdata <- function(data, var){
   #create rownames but this will only be a placeholder for now
   rownames(mod_data) <- character(n_measurements)
 
-  #Make IDs the column names
+  #nake IDs the column names
   colnames(mod_data) <- data$ID
 
   # loop through each variable-date pair

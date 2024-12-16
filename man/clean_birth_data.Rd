@@ -7,11 +7,12 @@
 clean_birth_data(data)
 }
 \arguments{
-\item{data}{Unclean dataset}
+\item{data}{A data frame containing birth information. Column names
+should be formatted as "ID", "Sex", "Num", "Treatment"}
 }
 \value{
-Returns a clean, pre-processed dataset
+Returns a cleaned birth dataset.
 }
 \description{
-clean_birth_data() Function
+This function cleans birth data by checking treatment assignments and IDs.
 }

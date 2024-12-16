@@ -1,10 +1,10 @@
 #' excelsheetinfo() Function
 #'
-#' @param path The path of the excel file containing the information.
+#' This function reads in the excel file at the given path and then prompts the
+#' user to identify which sheets inside the excel file are which data set type.
+#' (Birth, Body Weight, or Outcome)
 #'
-#' excelsheetinfo() Function
-#'
-#' @param path Path of the excel sheet.
+#' @param path The path of the excel file to be analyzed.
 #'
 #' @return This function returns a mapping of each sheet in the excel to
 #'   a particular data set type (Birth, Body Weight, or Outcome).
