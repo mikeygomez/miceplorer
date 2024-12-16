@@ -1,6 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+``` r
+knitr::include_graphics("man/figures/miceplorer.jpg")
+```
+
+![](man/figures/miceplorer.jpg)<!-- -->
+
 # miceplorer
 
 <!-- badges: start -->
