@@ -12,6 +12,8 @@ knitr::include_graphics("man/figures/miceplorer.jpg")
 <!-- badges: start -->
 <!-- badges: end -->
 
+\*Note that the hex sticker was made using ChatGPT
+
 The goal of miceplorer is to help in cleaning and preprocessing the
 data. You should use this package, because it tests for a wide variety
 of potential errors including making sure that weight and outcome

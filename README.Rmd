@@ -13,6 +13,8 @@ knitr::include_graphics("man/figures/miceplorer.jpg")
 <!-- badges: start -->
 <!-- badges: end -->
 
+*Note that the hex sticker was made using ChatGPT
+
 The goal of miceplorer is to help in cleaning and preprocessing the data. You should use this package, because it tests for a wide variety of potential errors including making sure that weight and outcome measurement data are all numeric, ensuring that column names are correct, ensuring that IDs for all mice are correct, and identifying potential outliers. This package seeks to be a robust and easy-to-use tool in addressing errors in your datasets. 
 
 Additionally, you should use miceplorer, because it gives you flexibility in the way you want to clean your dataset. For a comprehensive clean, we have a function called clean_mouse_data that will clean all your tabs and calls individual functions for cleaning birth data, weight data, and outcome data. By breaking it up into different functions, you have autonomy over which tabs you  want to clean. Additionally, the cleaning functions for weight and outcome data are also broken up into the same functions - one to check for proper column names, one to check for correct IDs, and one to check for quantitative variables. These functions are also available to you to use. 
