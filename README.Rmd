@@ -28,13 +28,13 @@ This package also fits a time-series model on the data to identify potential out
 
 You can install the development version of miceplorer by entering this into the console:
 
-```{r}
+```{r, eval = F}
 devtools::install_github("mikeygomez/miceplorer")
 ```
 
 From there, to load the package in your current session, call:
 
-```{r}
+```{r, eval = F}
 library(miceplorer)
 ```
 
@@ -51,7 +51,7 @@ The excel file is expected to contain three sheets:
 
 3. The outcome data sheet sheet should contain the following columns in that particular order: ID, Outcome 1, Date Outcome 1, ..., Outcome X, Date Outcome X
 
-```{r example}
+```{r, eval = F}
 library(miceplorer)
 
 mousedata <- clean_mouse_data("data-raw/mousedata.xlsx")
@@ -59,7 +59,7 @@ mousedata <- clean_mouse_data("data-raw/mousedata.xlsx")
 
 Here is how you can visualize interim results:
 
-```{r}
+```{r, eval = F}
 treatment_info <- create_treatment_info(mousedata[1])
 
 plots <- plot_indmeasurement(mousedata[2], "Body Weight", treatment_info)
