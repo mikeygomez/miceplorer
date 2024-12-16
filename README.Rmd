@@ -29,7 +29,7 @@ This package also fits a time-series model on the data to identify potential out
 You can install the development version of miceplorer by entering this into the console:
 
 ```{r}
-
+devtools::install_github("mikeygomez/miceplorer")
 ```
 
 From there, to load the package in your current session, call:
